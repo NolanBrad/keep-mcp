@@ -112,6 +112,37 @@ def delete_note(note_id: str) -> str:
     keep.sync()  # Ensure deletion is saved to the server
     return json.dumps({"message": f"Note {note_id} marked for deletion"})
 
+@mcp.tool()
+def add_label(note_id: str, label_name: str) -> None:
+    """
+    Add a label to a note
+
+    Args:
+        note_id (str): The ID of the note to update
+        label_name (str): The name of the lbel to add
+
+    Returns:
+        None: No return
+
+    Raises:
+        ValueError: If the note doesn't exist or cannot be modified
+    """
+    keep = get_client()
+    note = keep.get(note_id)
+
+    if not note:
+        raise ValueError(f"Note with ID {note_id} not found")
+
+    if not can_modify_note(note):
+        raise ValueError(f"Note with ID {note_id} cannot be modified (missing keep-mcp label and UNSAFE_MODE is not enabled)")
+
+    # Get or create the label
+    label = keep.findLabel(label_name, create=True)
+
+    # Add the label to the note
+    note.labels.add(label)
+
+    keep.sync()  # Ensure changes are saved to the server
 
 def main():
     mcp.run(transport='stdio')
