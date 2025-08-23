@@ -133,8 +133,9 @@ def add_label(note_id: str, label_name: str) -> None:
     if not note:
         raise ValueError(f"Note with ID {note_id} not found")
 
-    if not can_modify_note(note):
-        raise ValueError(f"Note with ID {note_id} cannot be modified (missing keep-mcp label and UNSAFE_MODE is not enabled)")
+    # Dont need to check this for just adding a label
+    #if not can_modify_note(note):
+    #    raise ValueError(f"Note with ID {note_id} cannot be modified (missing keep-mcp label and UNSAFE_MODE is not enabled)")
 
     # Get or create the label
     label = keep.findLabel(label_name, create=True)
