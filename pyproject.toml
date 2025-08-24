@@ -5,7 +5,7 @@ description = "MCP Server for Google Keep"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "gkeepapi @ git+https://github.com/NolanBrad/gkeepapi.git",
+    "gkeepapi @ git+https://github.com/NolanBrad/gkeepapi.git@395a49f",
     "mcp[cli]",
 ]
 authors = [
