@@ -29,17 +29,16 @@ def get_client():
     if not email:
         raise ValueError("Missing Google Keep credentials. Please set GOOGLE_EMAIL environment variable.")
 
-    if not auth_token and not master_token:
-        raise ValueError("Missing Google Keep credentials. Please set GOOGLE_AUTH_TOKEN or GOOGLE_MASTER_TOKEN environment variables.")
-
     # Initialize the Keep API
     keep = gkeepapi.Keep()
 
     # Authenticate
     if auth_token is not None:
-        keep.authenticate(email, auth_token, exchange_token=True)
-    else:
+        keep.authenticate(email, auth_token, exchange_first=True)
+    elif master_token is not None:
         keep.authenticate(email, master_token)
+    else:
+        raise ValueError("Missing Google Keep credentials. Please set GOOGLE_AUTH_TOKEN or GOOGLE_MASTER_TOKEN environment variables.")
 
     # Store the client for reuse
     _keep_client = keep
