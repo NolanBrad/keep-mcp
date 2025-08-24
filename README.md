@@ -27,6 +27,7 @@ MCP server for Google Keep
 2. Add your credentials:
 * `GOOGLE_EMAIL`: Your Google account email address
 * `GOOGLE_MASTER_TOKEN`: Your Google account master token
+* `GOOGLE_AUTH_TOKEN`: Your Google account auth token, which is exchanged for the master, keepng the master anon.
 
 Check https://gkeepapi.readthedocs.io/en/latest/#obtaining-a-master-token and https://github.com/simon-weber/gpsoauth?tab=readme-ov-file#alternative-flow for more information.
 
